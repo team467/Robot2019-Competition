@@ -1,4 +1,3 @@
-
 package frc.robot.tuning;
 
 import frc.robot.RobotMap;
@@ -79,13 +78,13 @@ public class ShooterTuner implements Tuner {
                 double setVel = shooter.getMotor().closedLoopTarget();
 
                 double ledFillPercent = Math.max(0, Math.min(1, Math.abs(speed)));
-                Color ledColor = Color.kBlueViolet;
-                if (currentVel/setVel > 0.9) {
-                    ledColor = Color.kDarkGoldenrod;
-                }
-                int fillLeds = (int) (RobotMap.SHOOTER_LED_AMOUNT * ledFillPercent)-1;
+                
+                int fillLeds = (int) (RobotMap.SHOOTER_LED_AMOUNT_PER_SIDE * ledFillPercent)-1;
                 if (fillLeds >= 0) {
-                    shooter.fillStrip(ledColor, fillLeds);
+                    shooter.fillStrip(0, 0, 255, fillLeds);
+                    if (currentVel/setVel > 0.9) {
+                        shooter.fillStrip(255, 255, 0, fillLeds);
+                    }
                 } else {
                     shooter.clearStrip();
                 }
@@ -95,7 +94,7 @@ public class ShooterTuner implements Tuner {
 
             if (RobotMap.HAS_SHOOTER_LEDS) {
                 double ledFillPercent = Math.max(0, Math.min(1, Math.abs(speed)));
-                int fillLeds = (int) (RobotMap.SHOOTER_LED_AMOUNT * ledFillPercent)-1;
+                int fillLeds = (int) (RobotMap.SHOOTER_LED_AMOUNT_PER_SIDE * ledFillPercent)-1;
                 if (fillLeds >= 0) {
                     shooter.fillStrip(0, 0, 255, fillLeds);
                 } else {

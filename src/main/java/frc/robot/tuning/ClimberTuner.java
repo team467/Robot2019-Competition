@@ -30,8 +30,9 @@ public class ClimberTuner implements Tuner {
         SmartDashboard.putBoolean("Lock Solenoid", false);
         SmartDashboard.putBoolean("Top Sensor", false);
         SmartDashboard.putBoolean("Bottom Sensor", false);
+        SmartDashboard.putNumber("Climber Pot", 0);
 
-        double kP = SmartDashboard.getNumber("Climber P", 0);
+        double kP = SmartDashboard.getNumber("Climber P", 0.00015);
         double kI = SmartDashboard.getNumber("Climber I", 0);
         double kD = SmartDashboard.getNumber("Climber D", 0);
         double kF = SmartDashboard.getNumber("Climber F", 0);
@@ -52,7 +53,7 @@ public class ClimberTuner implements Tuner {
 
     public void periodic() {
         double speed = SmartDashboard.getNumber("Speed", 0);
-        boolean lockSolenoid = SmartDashboard.putBoolean("Lock Solenoid", false);
+        boolean lockSolenoid = SmartDashboard.getBoolean("Lock Solenoid", false);
 
         if (useVelocity) {
             climber.setClimb(speed);
@@ -70,5 +71,6 @@ public class ClimberTuner implements Tuner {
         SmartDashboard.putNumber("Climber Position", climber.getPosition());
         SmartDashboard.putBoolean("Top Sensor", climber.getTopSensor());
         SmartDashboard.putBoolean("Bottom Sensor", climber.getBottomSensor());
+        SmartDashboard.putNumber("Climber Pot", climber.climberPosition());
     }
 }
